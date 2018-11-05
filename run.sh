@@ -1,1 +1,1 @@
-FLASK_APP=app.py $1/python -m flask run
+FLASK_APP=correlacao_app/app.py bin/python -m flask run --host=0.0.0.0
