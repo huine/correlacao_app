@@ -11,7 +11,7 @@
         <br>
         <ul id="navigation">      
             {% for item in dados %}
-            <li>{{ item.id }} - {{ item.nome }}</li>
+            <li>{{ item[0] }} - {{ item[1] }}</li>
             {% endfor %}
         </ul>
     </body>

@@ -6,6 +6,7 @@ from model.DB.DB import DB
 from controller.controller import Controller
 
 app = Flask(__name__)
+controller = Controller()
 
 
 @app.errorhandler(404)
@@ -17,7 +18,7 @@ def not_found(error):
 @app.route('/', methods=["GET"])
 def index_html():
     """Pagina principal da aplicacao."""
-    dados = Controller.inicio()
+    dados = controller.inicio()
     return render_template('index_html.html', dados=dados)
 
 
