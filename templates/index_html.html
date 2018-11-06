@@ -6,9 +6,14 @@
         <title>P&aacute;gina inicial</title>
     </head>
     <body>
-        {% if var %}
-          <h3>V&aacute;riavel nome: {{ var }}</h3>
-        {% endif %}
+        <h3>HOME</h3>
+        <br>
+        <br>
+        <ul id="navigation">      
+            {% for item in dados %}
+            <li>{{ item.id }} - {{ item.nome }}</li>
+            {% endfor %}
+        </ul>
     </body>
 </html>
 

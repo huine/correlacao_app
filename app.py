@@ -1,13 +1,9 @@
 # -*- coding: iso-8859-1 -*-
-# from flask import request
-# from flask import current_app
-# from flask import jsonify
-# from flask import make_response
-# from flask import json
-# import time
 from flask import Flask
 from flask import render_template
 import os
+from model.DB.DB import DB
+from controller.controller import Controller
 
 app = Flask(__name__)
 
@@ -19,13 +15,24 @@ def not_found(error):
 
 
 @app.route('/', methods=["GET"])
-@app.route('/<var>', methods=["POST", "GET"])
-def index_html(var='Não informado'):
+def index_html():
     """Pagina principal da aplicacao."""
-    return render_template('index_html.html', var=var)
+    dados = Controller.inicio()
+    return render_template('index_html.html', dados=dados)
+
+
+@app.route('/bd')
+def bd():
+    """Teste da conexao com o banco."""
+    bd = DB()
+    bd.conectar()
+    if bd.testar_conexao():
+        return "Banco conectado."
+    else:
+        return "N&atilde;o foi poss&iacute;vel se conectar ao banco."
 
 
 port = int(os.environ.get('PORT', "5000"))
 if __name__ == "__main__":
     # debug=True, use_reloader=True,
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, use_reloader=True)
