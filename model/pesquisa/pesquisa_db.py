@@ -11,13 +11,11 @@ class Pesquisa(object):
 
     def _exec(self):
         """Executa a query que esta no atributo query."""
-        self.conexao = DB()
-        cur = self.conexao.conectar()
-        cur.execute(self.query)
-        sql = cur.fetchall()
-        cur.close()
+        conexao = DB()
 
-        return sql
+        _r = conexao.conector.execute(self.query)
+
+        return _r
 
     def busca_empresa(self, empresas=None):
         """Busca as empresas disponiveis no banco."""
