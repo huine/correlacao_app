@@ -1,6 +1,6 @@
 # -*- coding: iso-8859-1 -*-
-from flask import Flask
-from flask import render_template
+from flask import
+from flask import Flask, render_template, request, session
 import os
 from model.DB.DB import DB
 from controller.controller import Controller
@@ -16,14 +16,27 @@ def not_found(error):
 
 
 @app.route('/', methods=["GET"])
-def index_html():
+def index_html(erro=""):
     """Pagina principal da aplicacao."""
-    dados = controller.inicio()
+    dados = controller.inicio(erro="")
     return render_template('index_html.html', dados=dados)
 
 
-@app.route('/bd')
-def bd():
+@app.route('/validar_dados', methods=["POST"])
+def validar_dados():
+    """Validacao dos inputs."""
+    _r = controller.validar()
+
+    if _r[0] == 0:
+        return index_html(erro=_r[1])
+
+    dados = controller.calcular(dados=_r[1])
+
+    return 'ljfksdjfsldk'
+
+
+@app.route('/db')
+def db():
     """Teste da conexao com o banco."""
     bd = DB()
     bd.conectar()
