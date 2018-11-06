@@ -39,7 +39,7 @@ class Pesquisa(object):
 
         return self._exec()
 
-    def busca_acoes(self, empresas=None):
+    def busca_acoes(self, empresas=None, dt_init=None, dt_fim=None):
         """Busca as empresas disponiveis no banco."""
         query = """
             SELECT
@@ -63,6 +63,17 @@ class Pesquisa(object):
             query += (
                 ("AND id_empresa in (%s)") % (
                     ','.join(str(x) for x in empresas))
+            )
+        if dt_init:
+            query += (
+                ("AND data >= to_date('%s', 'dd/mm/yyyy')") % (
+                    dt_init.strftime('%d/%m/%Y'))
+            )
+
+        if dt_fim:
+            query += (
+                ("AND data <= to_date('%s', 'dd/mm/yyyy')") % (
+                    dt_fim.strftime('%d/%m/%Y'))
             )
 
         self.query = query
