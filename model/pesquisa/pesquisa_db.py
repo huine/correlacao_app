@@ -13,7 +13,11 @@ class Pesquisa(object):
         """Executa a query que esta no atributo query."""
         conexao = DB()
 
-        _r = conexao.conector.execute(self.query)
+        _results = conexao.conector.execute(self.query)
+
+        _r = []
+        for item in _results:
+            _r.append(item)
 
         return _r
 
