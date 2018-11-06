@@ -3,17 +3,45 @@
     <head>
         <meta charset="ISO-8859-1">
         <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"> 
-        <title>P&aacute;gina inicial</title>
+        <title>Correlação</title>
     </head>
     <body>
-        <h3>HOME</h3>
-        <br>
-        <br>
-        <ul id="navigation">      
-            {% for item in dados['empresas'] %}
-                <li>{{ item[0] }} - {{ item[1] }}</li>
-            {% endfor %}
-        </ul>
+        <center>
+            <h3>Correlação</h3>
+            <br>
+            <br>
+            {% if dados['erro'] %}
+                <div style="background-color: #ddaeae; width: 50%; font-weight: bold;">
+                    {{ dados['erro'] }}
+                </div>
+            {% endif %}
+            <form action="validar_dados" method="POST">
+                <h5>Limitar por data</h5>
+                <br>
+                De: <input name="data_init" placeholder="dd/mm/yyyy" type="date" maxlength="10"> até <input name="data_fim" placeholder="DD/MM/YYYY" type="date" maxlength="10">
+
+                <br>
+                <h5>Empresa à consultar</h5>
+                <br>
+                <ul>
+                    {% for item in dados['empresas'] %}
+                        <li style="list-style-type: none;"><input type="radio" value="{{ item[0] }}" name="id_empresa" id="id_empresa" />{{ item[1] }}</li>
+                    {% endfor %}
+                </ul>
+
+                <br>
+                <h5>Empresa à comparar</h5>
+                <br>
+                <ul>
+                    {% for item in dados['empresas'] %}
+                        <li style="list-style-type: none;"><input type="checkbox" value="{{ item[0] }}" name="id_empresa_comp" />{{ item[1] }}</li>
+                    {% endfor %}
+                </ul>
+
+                <input type="reset" value="Limpar Seleção" />
+                <input type="submit" value="Enviar" />
+            </form>
+        </center>
     </body>
 </html>
 
