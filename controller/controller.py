@@ -41,7 +41,7 @@ class Controller(object):
             else:
                 return (0, 'Data fim inválida.')
 
-        id_empresa = request.form['id_empresa']
+        id_empresa = request.form.get('id_empresa', None)
         if id_empresa:
             _r = self.acoes.validar_empresa(id_empresa, unique=True)
 

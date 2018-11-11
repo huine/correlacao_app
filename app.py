@@ -17,7 +17,7 @@ def not_found(error):
 @app.route('/', methods=["GET"])
 def index_html(erro=""):
     """Pagina principal da aplicacao."""
-    dados = controller.inicio(erro="")
+    dados = controller.inicio(erro=erro)
     return render_template('index_html.html', dados=dados)
 
 
@@ -26,10 +26,10 @@ def validar_dados():
     """Validacao dos inputs."""
     _r = controller.validar()
 
+    return jsonify(_r)
+
     if _r[0] == 0:
         return index_html(erro=_r[1])
-
-    return jsonify(_r)
 
     dados = controller.calcular(dados=_r[1])
 
