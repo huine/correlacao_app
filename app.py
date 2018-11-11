@@ -24,9 +24,9 @@ def index_html(erro=""):
 @app.route('/validar_dados', methods=["POST"])
 def validar_dados():
     """Validacao dos inputs."""
+    return request.get_json(force=True)
     _r = controller.validar()
 
-    return jsonify(_r)
 
     if _r[0] == 0:
         return index_html(erro=_r[1])
