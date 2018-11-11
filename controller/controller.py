@@ -43,14 +43,14 @@ class Controller(object):
 
         id_empresa = request.form['id_empresa']
         if id_empresa:
-            _r = self.acoes.validar_empresa(id_empresa)
+            _r = self.acoes.validar_empresa(id_empresa, unique=True)
 
             if _r[0]:
                 id_empresa = _r[1]
             else:
                 return (0, 'ID(s) empresa(s) inválido')
 
-        id_empresa_comp = request.form['id_empresa_comp']
+        id_empresa_comp = request.form.getlist('id_empresa_comp')
         if id_empresa_comp:
             _r = self.acoes.validar_empresa(id_empresa_comp)
 
