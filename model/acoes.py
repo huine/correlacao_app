@@ -14,10 +14,10 @@ class Acoes(object):
         """Agrupa os dados de uma lista."""
         d = {}
         for item in lista:
-            if str(lista[indice]) in d.keys():
-                d[str(lista[indice])].append(item)
+            if str(item[indice]) in d.keys():
+                d[str(item[indice])].append(item)
             else:
-                d[str(lista[indice])] = [item]
+                d[str(item[indice])] = [item]
 
         return d
 
@@ -95,8 +95,6 @@ class Acoes(object):
         emp_princ = self._p.busca_acoes(
             empresas=dados['id_empresa'], dt_init=dados['dt_init'],
             dt_fim=dados['dt_fim'])
-
-        raise Exception([item[1] for item in emp_princ])
 
         sd_emp_princ = self.std_dev(dados=emp_princ)
         mean_emp_princ = self.mean_calc(dados=emp_princ)
