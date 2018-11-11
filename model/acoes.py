@@ -197,7 +197,7 @@ class Acoes(object):
                     else:
                         d['var'] = -1
 
-                saida_periodo.append(tmp)
+                saida_periodo.append(d)
 
             saida['corr_prog'][empresa] = saida_periodo
 
