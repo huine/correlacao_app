@@ -36,7 +36,7 @@
             <br>
             <div>
                 {% for item in dados['corr_prog'].keys() %}
-                    <input type="hidden" value="{{ item }}" class="period_emp"/>
+                    <input type="hidden" value="{{ item }}" class="progress_emp"/>
                     {% with data = dados['corr_prog'][item] %}
                         {% for d in data %}
                             <input type="hidden" value="{{ d['dt_init'] }}" id="progress_init_{{ item }}"/>
