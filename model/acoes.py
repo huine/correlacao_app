@@ -96,7 +96,7 @@ class Acoes(object):
             empresas=dados['id_empresa'], dt_init=dados['dt_init'],
             dt_fim=dados['dt_fim'])
 
-        raise Exception(emp_princ)
+        raise Exception([item[1] for item in emp_princ])
 
         sd_emp_princ = self.std_dev(dados=emp_princ)
         mean_emp_princ = self.mean_calc(dados=emp_princ)
