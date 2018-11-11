@@ -32,6 +32,10 @@ def validar_dados():
 
     dados = controller.calcular(dados=_r[1])
 
+    if dados[0] == 0:
+        return self.index_html(
+            erro="Nenhum dado encontrado para os parâmetros informados.")
+
     return json.dumps(dados)
 
     return 'ljfksdjfsldk'

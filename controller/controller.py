@@ -62,4 +62,9 @@ class Controller(object):
 
     def calcular(self, dados):
         """Calcula a correlacao dos dados."""
-        return self.acoes.calcular(dados=dados)
+        _r = self.acoes.calcular(dados=dados)
+
+        if _r:
+            return (1, _r)
+        else:
+            return (0, _r)

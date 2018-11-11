@@ -96,6 +96,9 @@ class Acoes(object):
             empresas=dados['id_empresa'], dt_init=dados['dt_init'],
             dt_fim=dados['dt_fim'])
 
+        if len(emp_princ) == 0:
+            return {}
+
         sd_emp_princ = self.std_dev(dados=emp_princ)
         mean_emp_princ = self.mean_calc(dados=emp_princ)
 
@@ -108,13 +111,30 @@ class Acoes(object):
         if str(emp_princ[1]) in emp_comp.keys():
             del emp_comp[emp_princ[1]]
 
-        saida = {}
+        saida = {'corr_geral': {}, 'corr_periodo': {}, 'corr_prog': {}}
 
         for empresa in emp_comp.keys():
             sd_empresa = self.std_dev(dados=emp_comp[empresa])
             cov_empresa = self.covariance_calc(
                 dados_princ=emp_princ, dados_comp=emp_comp[empresa])
-            saida[empresa] = Decimal(cov_empresa) /\
-                Decimal(sd_emp_princ*sd_empresa)
+            saida['corr_geral'][empresa] =\
+                cov_empresa / (sd_emp_princ*sd_empresa)
+
+            saida_periodo = []
+            init = 0
+            while init < len(emp_princ):
+                periodo_emp_princ = emp_princ[init:init+90]
+                periodo = emp_comp[empresa][init:init+90]
+
+                sd_empresa = self.std_dev(dados=periodo)
+                cov_empresa = self.covariance_calc(
+                    dados_princ=periodo_emp_princ[index], dados_comp=periodo)
+
+                saida_periodo.append(cov_empresa / (sd_emp_princ*sd_empresa))
+
+                init += 90
+
+
+            saida['corr_periodo'][empresa] = saida_periodo
 
         return saida
