@@ -23,7 +23,7 @@ class Controller(object):
 
     def validar(self):
         """Valida os dados da request."""
-        return request.form.get_json(force=True)
+        return request.get_json(force=True)
         data_inicio = request.form.get('data_init', '')
         if data_inicio:
             _r = self.acoes.validar_data(data_inicio)
