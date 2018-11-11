@@ -112,7 +112,8 @@ class Acoes(object):
             del emp_comp[emp_princ[0][1]]
 
         saida = {'corr_geral': {}, 'corr_periodo': {}, 'corr_prog': {},
-                 'qtd_dias': len(emp_princ)}
+                 'qtd_dias': len(emp_princ), 'emp_princ': emp_princ[0][1],
+                 'emp_comp': emp_comp.keys()}
 
         for empresa in emp_comp.keys():
             sd_empresa = self.std_dev(dados=emp_comp[empresa])
@@ -128,6 +129,9 @@ class Acoes(object):
                 periodo = emp_comp[empresa][init:init+90]
 
                 init += 90
+
+                if init > len(emp_princ):
+                    init = len(emp_princ)
 
                 sd_empresa = self.std_dev(dados=periodo)
                 cov_empresa = self.covariance_calc(
@@ -154,6 +158,9 @@ class Acoes(object):
 
                 periodo_emp_princ = emp_princ[0:end]
                 periodo = emp_comp[empresa][0:end]
+
+                if end > len(emp_princ):
+                    end = len(emp_princ)
 
                 sd_empresa = self.std_dev(dados=periodo)
                 cov_empresa = self.covariance_calc(

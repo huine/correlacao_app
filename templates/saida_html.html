@@ -12,7 +12,7 @@
             <br>
             {% if dados['erro'] %}
                 <div style="background-color: #ddaeae; width: 50%; font-weight: bold;">
-                    {{ dados['erro'] }}
+                    {{ dados['erro'].decode('iso-8859-1').encode('utf8') }}
                 </div>
             {% endif %}
             <form action="validar_dados" method="POST">
@@ -20,7 +20,7 @@
                 <br>
                 De: <input name="data_init" placeholder="dd/mm/yyyy" type="date" maxlength="10"> até <input name="data_fim" placeholder="DD/MM/YYYY" type="date" maxlength="10">
                 <br>
-                <!-- Datas entre: 04/01/2016 até 03/09/2018 -->
+                <font size="0.5">Datas entre: 04/01/2016 até 03/09/2018</font>
 
                 <br>
                 <h5>Empresa à consultar</h5>
