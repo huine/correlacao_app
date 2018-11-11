@@ -61,18 +61,18 @@ class Pesquisa(object):
 
         if empresas and empresas is not None and len(empresas) > 0:
             query += (
-                ("AND id_empresa in (%s)") % (
+                ("AND v.id_empresa in (%s)") % (
                     ','.join(str(x) for x in empresas))
             )
         if dt_init:
             query += (
-                ("AND data >= to_date('%s', 'dd/mm/yyyy')") % (
+                ("AND v.data >= to_date('%s', 'dd/mm/yyyy')") % (
                     dt_init.strftime('%d/%m/%Y'))
             )
 
         if dt_fim:
             query += (
-                ("AND data <= to_date('%s', 'dd/mm/yyyy')") % (
+                ("AND v.data <= to_date('%s', 'dd/mm/yyyy')") % (
                     dt_fim.strftime('%d/%m/%Y'))
             )
 
