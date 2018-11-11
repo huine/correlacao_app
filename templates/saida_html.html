@@ -164,12 +164,12 @@
         function gerar_grafico(period, progress){
             var chart_period = new CanvasJS.Chart("Period", {
                 animationEnabled: true,
-                theme: "dark1",
+                theme: "dark2",
                 title:{
                     text: "Correlação por período de 90 dias."
                 },
                 axisX:{
-                    valueFormatString: "DD MMM YYYY",
+                    valueFormatString: "DD/MM/YYYY",
                     crosshair: {
                         enabled: true,
                         snapToDataPoint: true
@@ -211,7 +211,7 @@
                     text: "Progressão da correlação a cada 90 dias."
                 },
                 axisX:{
-                    valueFormatString: "DD MMM YYYY",
+                    valueFormatString: "DD/MM/YYYY",
                     crosshair: {
                         enabled: true,
                         snapToDataPoint: true
