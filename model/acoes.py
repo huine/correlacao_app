@@ -2,6 +2,7 @@
 from model.pesquisa.pesquisa_db import Pesquisa
 from datetime import datetime
 import math
+from decimal import Decimal
 
 
 class Acoes(object):
@@ -114,6 +115,6 @@ class Acoes(object):
             sd_empresa = self.std_dev(dados=emp_comp[empresa])
             cov_empresa = self.covariance_calc(
                 dados_princ=emp_princ, dados_comp=emp_comp[empresa])
-            saida[empresa] = cov_empresa/float((sd_emp_princ*sd_empresa))
+            saida[empresa] = Decimal(cov_empresa) / (sd_emp_princ*sd_empresa)
 
         return saida
