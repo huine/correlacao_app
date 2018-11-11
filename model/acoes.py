@@ -128,7 +128,7 @@ class Acoes(object):
 
                 sd_empresa = self.std_dev(dados=periodo)
                 cov_empresa = self.covariance_calc(
-                    dados_princ=periodo_emp_princ[index], dados_comp=periodo)
+                    dados_princ=periodo_emp_princ, dados_comp=periodo)
 
                 saida_periodo.append(cov_empresa / (sd_emp_princ*sd_empresa))
 
