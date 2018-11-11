@@ -23,6 +23,7 @@ class Controller(object):
 
     def validar(self):
         """Valida os dados da request."""
+        return request.form.get_json(force=True)
         data_inicio = request.form.get('data_init', '')
         if data_inicio:
             _r = self.acoes.validar_data(data_inicio)
@@ -42,22 +43,20 @@ class Controller(object):
                 return (0, 'Data fim inválida.')
 
         id_empresa = request.form.get('id_empresa', None)
-        if id_empresa:
-            _r = self.acoes.validar_empresa(id_empresa, unique=True)
+        _r = self.acoes.validar_empresa(id_empresa, unique=True)
 
-            if _r[0]:
-                id_empresa = _r[1]
-            else:
-                return (0, 'ID(s) empresa(s) inválido')
+        if _r[0]:
+            id_empresa = _r[1]
+        else:
+            return (0, 'ID(s) empresa(s) inválido')
 
         id_empresa_comp = request.form.getlist('id_empresa_comp')
-        if id_empresa_comp:
-            _r = self.acoes.validar_empresa(id_empresa_comp)
+        _r = self.acoes.validar_empresa(id_empresa_comp)
 
-            if _r[0]:
-                id_empresa_comp = _r[1]
-            else:
-                return (0, 'ID(s) empresa(s) inválido')
+        if _r[0]:
+            id_empresa_comp = _r[1]
+        else:
+            return (0, 'ID(s) empresa(s) inválido')
 
         return (1, {'dt_init': data_inicio, 'id_empresa': id_empresa,
                     'dt_fim': data_fim, 'id_empresa_comp': id_empresa_comp})
