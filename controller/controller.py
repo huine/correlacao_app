@@ -1,4 +1,4 @@
-# encoding: iso-8859-1
+# -*- coding: utf-8 -*-
 from model.acoes import Acoes
 from flask import request, session
 

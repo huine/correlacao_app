@@ -1,4 +1,4 @@
-# encoding: iso-8859-1
+# -*- coding: utf-8 -*-
 from model.DB.DB import DB
 
 
