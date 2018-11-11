@@ -42,7 +42,7 @@ class Controller(object):
                 return (0, 'Data fim inválida.')
 
         id_empresa = request.form.get('id_empresa', None)
-        _r = self.acoes.validar_empresa(id_empresa, unique=True)
+        _r = self.acoes.validar_empresa(id_empresa)
 
         if _r[0]:
             id_empresa = _r[1]

@@ -30,24 +30,18 @@ class Acoes(object):
         
         return (1, d)
 
-    def validar_empresa(self, id_empresa, unique=False):
+    def validar_empresa(self, id_empresa):
         """Valida o id_empresa e retorna uma lista de int."""
         try:
-            if not unique:
+            if isinstance(id_empresa, (list, tuple)):
                 if len(id_empresa) == 0:
                     return (0, [])
 
-                if isinstance(id_empresa, (list, tuple)):
-                    return (1, [int(x) for x in id_empresa])
-                else:
-                    return (1, [int(x)])
+                return (1, [int(x) for x in id_empresa])
             else:
-                return (1, int(id_empresa))
+                return (1, [int(x)])
         except:
-            if not unique:
-                return (0, [])
-            else:
-                return (0, None)
+            return (0, None)
 
     def calcular(self, dados):
         """Recebe os dados necessarios para iniciar os calculos."""
