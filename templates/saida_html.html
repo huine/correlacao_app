@@ -7,43 +7,15 @@
     </head>
     <body>
         <center>
-            <h3>Correlação</h3>
+            {%  %}
+            <h3>Correlação Saída</h3>
             <br>
             <br>
-            {% if dados['erro'] %}
-                <div style="background-color: #ddaeae; width: 50%; font-weight: bold;">
-                    {{ dados['erro'].decode('iso-8859-1').encode('utf8') }}
-                </div>
-            {% endif %}
-            <form action="validar_dados" method="POST">
-                <h5>Limitar por data</h5>
-                <br>
-                De: <input name="data_init" placeholder="dd/mm/yyyy" type="date" maxlength="10"> até <input name="data_fim" placeholder="DD/MM/YYYY" type="date" maxlength="10">
-                <br>
-                <font size="0.5">Datas entre: 04/01/2016 até 03/09/2018</font>
-
-                <br>
-                <h5>Empresa à consultar</h5>
-                <br>
-                <ul>
-                    {% for item in dados['empresas'] %}
-                        <li style="list-style-type: none;"><input type="radio" value="{{ item[0] }}" name="id_empresa" id="id_empresa" />{{ item[1] }}</li>
-                    {% endfor %}
-                </ul>
-
-                <br>
-                <h5>Empresa à comparar</h5>
-                <br>
-                <ul>
-                    {% for item in dados['empresas'] %}
-                        <li style="list-style-type: none;"><input type="checkbox" value="{{ item[0] }}" name="id_empresa_comp" />{{ item[1] }}</li>
-                    {% endfor %}
-                </ul>
-
-                <input type="reset" value="Limpar Seleção" />
-                <input type="submit" value="Enviar" />
-            </form>
+            <ul>
+                {% for item in dados['empresas'] %}
+                    <li style="list-style-type: none;"><input type="radio" value="{{ item[0] }}" name="id_empresa" id="id_empresa" />{{ item[1] }}</li>
+                {% endfor %}
+            </ul>
         </center>
     </body>
 </html>
-

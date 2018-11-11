@@ -112,6 +112,9 @@ class Acoes(object):
         if str(emp_princ[0][1]) in emp_comp.keys():
             del emp_comp[emp_princ[0][1]]
 
+        if len(emp_comp.keys()) == 0:
+            return {}
+
         saida = {'corr_geral': {}, 'corr_periodo': {}, 'corr_prog': {},
                  'qtd_dias': len(emp_princ), 'emp_princ': emp_princ[0][1],
                  'emp_comp': emp_comp.keys(), 'dt_init': emp_princ[0][9],
@@ -121,8 +124,13 @@ class Acoes(object):
             sd_empresa = self.std_dev(dados=emp_comp[empresa])
             cov_empresa = self.covariance_calc(
                 dados_princ=emp_princ, dados_comp=emp_comp[empresa])
-            saida['corr_geral'][empresa] = (
-                len(emp_princ), cov_empresa / (sd_emp_princ*sd_empresa))
+            corr = cov_empresa / (sd_emp_princ*sd_empresa)
+
+            d = {'qtd_dias': len(emp_princ), 'dt_init': saida['dt_init'],
+                 'dt_fim': saida['dt_fim'],
+                 'corr': corr}
+
+            saida['corr_geral'][empresa] = d
 
             saida_periodo = []
             init = 0
@@ -139,17 +147,22 @@ class Acoes(object):
                 cov_empresa = self.covariance_calc(
                     dados_princ=periodo_emp_princ, dados_comp=periodo)
                 corr = cov_empresa / (sd_emp_princ*sd_empresa)
+
+                d = {'qtd_dias': init, 'intervalo': len(periodo_emp_princ),
+                     'dt_init': periodo_emp_princ[0][9], 'corr': corr,
+                     'dt_fim': periodo_emp_princ[-1][9]}
+
                 if init <= 90:
-                    tmp = (init, corr, 0)
+                    d['var'] = 0
                 else:
                     if corr > saida_periodo[-1]:
-                        tmp = (init, corr, 1)
+                        d['var'] = 1
                     elif corr == saida_periodo[-1]:
-                        tmp = (init, corr, 0)
+                        d['var'] = 0
                     else:
-                        tmp = (init, corr, -1)
+                        d['var'] = -1
 
-                saida_periodo.append(tmp)
+                saida_periodo.append(d)
 
             saida['corr_periodo'][empresa] = saida_periodo
 
@@ -170,15 +183,19 @@ class Acoes(object):
 
                 corr = cov_empresa / (sd_emp_princ*sd_empresa)
 
+                d = {'qtd_dias': end, 'intervalo': len(periodo_emp_princ),
+                     'dt_init': saida['dt_init'], 'corr': corr,
+                     'dt_fim': periodo_emp_princ[-1][9]}
+
                 if end <= 90:
-                    tmp = (end, corr, 0)
+                    d['var'] = 0
                 else:
                     if corr > saida_periodo[-1]:
-                        tmp = (end, corr, 1)
+                        d['var'] = 1
                     elif corr == saida_periodo[-1]:
-                        tmp = (end, corr, 0)
+                        d['var'] = 0
                     else:
-                        tmp = (end, corr, -1)
+                        d['var'] = -1
 
                 saida_periodo.append(tmp)
 
