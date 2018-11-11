@@ -22,10 +22,7 @@
                     <input type="hidden" value="{{ item }}" class="period_emp"/>
                     {% with data = dados['corr_periodo'][item] %}
                         {% for d in data %}
-                            <input type="hidden" value="{{ d['dt_init'] }}" id="period_init_{{ item }}"/>
-                            <input type="hidden" value="{{ d['dt_fim'] }}" id="period_fim_{{ item }}"/>
-                            <input type="hidden" value="{{ d['corr'] }}" id="period_corr_{{ item }}"/>
-                            <input type="hidden" value="{{ d['var'] }}" id="period_var_{{ item }}"/>
+                            <input type="hidden" value="{{ d }}" id="period_{{ item }}"/>
                         {% endfor %}
                     {% endwith %}
                 {% endfor %}
@@ -39,10 +36,7 @@
                     <input type="hidden" value="{{ item }}" class="progress_emp"/>
                     {% with data = dados['corr_prog'][item] %}
                         {% for d in data %}
-                            <input type="hidden" value="{{ d['dt_init'] }}" id="progress_init_{{ item }}"/>
-                            <input type="hidden" value="{{ d['dt_fim'] }}" id="progress_fim_{{ item }}"/>
-                            <input type="hidden" value="{{ d['corr'] }}" id="progress_corr_{{ item }}"/>
-                            <input type="hidden" value="{{ d['var'] }}" id="progress_var_{{ item }}"/>
+                            <input type="hidden" value="{{ d }}" id="progress_{{ item }}"/>
                         {% endfor %}
                     {% endwith %}
                 {% endfor %}
@@ -56,7 +50,7 @@
 
             var chart = new CanvasJS.Chart("Period", {
                 animationEnabled: true,
-                theme: "light2",
+                theme: "dark1",
                 title:{
                     text: "Correlação por período de 90 dias."
                 },
@@ -141,6 +135,72 @@
                 chart.render();
             }
         }
+
+        function format_date(date){
+            var parts = date.split('/');
+            return new Date(parts[0], parts[1] - 1, parts[2]);
+        }
+
+        function color(){
+            colors = ['Black', 'Navy', 'DarkBlue', 'MediumBlue', 'Blue', 'DarkGreen', 'Green', 'Teal', 'DarkCyan', 'DeepSkyBlue', 'DarkTurquoise',
+                      'MediumSpringGreen', 'Lime', 'SpringGreen', 'Aqua', 'Cyan', 'MidnightBlue', 'DodgerBlue', 'LightSeaGreen', 'ForestGreen', 'SeaGreen',
+                      'DarkSlateGray', 'DarkSlateGrey', 'LimeGreen', 'MediumSeaGreen', 'Turquoise', 'RoyalBlue', 'SteelBlue', 'DarkSlateBlue', 'MediumTurquoise',
+                      'Indigo', 'DarkOliveGreen', 'CadetBlue', 'CornflowerBlue', 'RebeccaPurple', 'MediumAquaMarine', 'DimGray', 'DimGrey', 'SlateBlue',
+                      'OliveDrab', 'SlateGray', 'SlateGrey', 'LightSlateGray', 'LightSlateGrey', 'MediumSlateBlue', 'LawnGreen', 'Chartreuse', 'Aquamarine',
+                      'Maroon', 'Purple', 'Olive', 'Gray', 'Grey', 'SkyBlue', 'LightSkyBlue', 'BlueViolet', 'DarkRed', 'DarkMagenta', 'SaddleBrown',
+                      'DarkSeaGreen', 'LightGreen', 'MediumPurple', 'DarkViolet', 'PaleGreen', 'DarkOrchid', 'YellowGreen', 'Sienna', 'Brown', 'DarkGray',
+                      'DarkGrey', 'LightBlue', 'GreenYellow', 'PaleTurquoise', 'LightSteelBlue', 'PowderBlue', 'FireBrick', 'DarkGoldenRod', 'MediumOrchid',
+                      'RosyBrown', 'DarkKhaki', 'Silver', 'MediumVioletRed', 'IndianRed', 'Peru', 'Chocolate', 'Tan', 'LightGray', 'LightGrey', 'Thistle',
+                      'Orchid', 'GoldenRod', 'PaleVioletRed', 'Crimson', 'Gainsboro', 'Plum', 'BurlyWood', 'LightCyan', 'Lavender', 'DarkSalmon', 'Violet',
+                      'PaleGoldenRod', 'LightCoral', 'Khaki', 'AliceBlue', 'HoneyDew', 'Azure', 'SandyBrown', 'Wheat', 'Beige', 'WhiteSmoke', 'MintCream',
+                      'GhostWhite', 'Salmon', 'AntiqueWhite', 'Linen', 'LightGoldenRodYellow', 'OldLace', 'Red', 'Fuchsia', 'Magenta', 'DeepPink', 'OrangeRed',
+                      'Tomato', 'HotPink', 'Coral', 'DarkOrange', 'LightSalmon', 'Orange', 'LightPink', 'Pink', 'Gold', 'PeachPuff', 'NavajoWhite', 'Moccasin',
+                      'Bisque', 'MistyRose', 'BlanchedAlmond', 'PapayaWhip', 'LavenderBlush', 'SeaShell', 'Cornsilk', 'LemonChiffon', 'FloralWhite', 'Snow',
+                      'Yellow', 'LightYellow', 'Ivory', 'White']
+            var rand = Math.random();
+            rand *= colors.length;
+            rand = Math.floor(rand);
+            return colors[rand]
+        }
+
+        // function dados_grafico(){
+        //     period_emp = document.getElementsByClassName('period_emp')
+        //     progress_emp = document.getElementsByClassName('progress_emp')
+
+        //     period = []
+        //     progress = []
+
+        //     for(var i=0; i < period_emp.length; i++){
+        //         tmp = []
+        //         document.getElementsByClassName()
+        //         // for(var j=0; j < )
+        //         //     format_date(document.getElementById('period_fim_' + period_emp[i].value)),
+        //         //     document.getElementById('period_corr_' + period_emp[i].value),
+        //         //     period_var = document.getElementById('period_var_' + period_emp[i].value)
+        //         //     if (period_var == 0){
+        //         //         obj = {
+        //         //             x: x, y: y, markerColor: "blue", markerType: "square"
+        //         //         }
+        //         //     } else if (period_var > 0){
+        //         //         obj = {
+        //         //             x: x, y: y, indexLabel: "Subida", markerColor: "green", markerType: "triangle"
+        //         //         }
+        //         //     } else {
+        //         //         obj = {
+        //         //             x: x, y: y, indexLabel: "Queda", markerColor: "red", markerType: "triangle"
+        //         //         }
+        //         //     }
+        //         //     tmp.push(obj);
+
+        //         obj{
+        //             type: "line",
+        //             showInLegend: true,
+        //             name: period_emp[i].value,
+        //             xValueFormatString: "DD MMM YYYY",
+        //             color: color()
+        //         }
+        //     }
+        // }
 
     </script>
 </html>
