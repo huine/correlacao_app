@@ -1,7 +1,7 @@
 # -*- coding: iso-8859-1 -*-
 from model.pesquisa.pesquisa_db import Pesquisa
 from datetime import datetime
-
+import math
 
 class Acoes(object):
     """Classe objeto acao."""
@@ -60,7 +60,7 @@ class Acoes(object):
         x = self.mean_calc(dados)
         for item in dados:
             c += (item[7] - x)**2
-        sd = (c/(len(dados) - 1))**(0.5) # **(0.5) -> square root
+        sd = math.sqrt((c/(len(dados) - 1)))
         return sd
 
     def mean_calc(self, dados):
