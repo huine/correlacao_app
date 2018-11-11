@@ -1,5 +1,6 @@
 # encoding: iso-8859-1
-from flask import Flask, render_template, request, session, jsonify
+from flask import Flask, render_template, request, session, jsonify, \
+    url_for, flash
 import os
 from model.DB.DB import DB
 from controller.controller import Controller
@@ -18,7 +19,7 @@ def not_found(error):
 @app.route('/', methods=["GET"])
 def index_html(erro=""):
     """Pagina principal da aplicacao."""
-    dados = controller.inicio(erro=erro)
+    dados = controller.inicio()
     return render_template('index_html.html', dados=dados)
 
 
@@ -28,17 +29,18 @@ def validar_dados():
     _r = controller.validar()
 
     if _r[0] == 0:
-        return index_html(erro=_r[1])
+        flash(_r[1])
+        return redirect(url_for('index_html'))
 
     dados = controller.calcular(dados=_r[1])
 
     if dados[0] == 0:
-        return self.index_html(
-            erro="Nenhum dado encontrado para os parâmetros informados.")
+        flash('Nenhum dado encontrado para os parametros informados.')
+        return redirect(url_for('index_html'))
 
-    return json.dumps(dados)
+    # return json.dumps(dados)
 
-    return 'ljfksdjfsldk'
+    return render_template('saida_html.html', dados=dados[1])
 
 
 @app.route('/db')

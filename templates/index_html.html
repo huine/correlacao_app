@@ -3,18 +3,22 @@
     <head>
         <meta charset="ISO-8859-1">
         <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"> 
-        <title>CorrelaÃ§Ã£o</title>
+        <title>Correlação</title>
     </head>
     <body>
         <center>
-            <h3>CorrelaÃ§Ã£o</h3>
+            <h3>Correlação</h3>
             <br>
             <br>
-            {% if dados['erro'] %}
-                <div style="background-color: #ddaeae; width: 50%; font-weight: bold;">
-                    {{ dados['erro'] }}
-                </div>
-            {% endif %}
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div style="background-color: #ddaeae; width: 50%; font-weight: bold;">
+                        {% for message in messages %}
+                            {{ message }}<br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
             <form action="validar_dados" method="POST">
                 <h5>Limitar por data</h5>
                 <br>
@@ -23,7 +27,7 @@
                 <!-- Datas entre: 04/01/2016 atÃ© 03/09/2018 -->
 
                 <br>
-                <h5>Empresa Ã  consultar</h5>
+                <h5>Empresa à consultar</h5>
                 <br>
                 <ul>
                     {% for item in dados['empresas'] %}
@@ -32,7 +36,7 @@
                 </ul>
 
                 <br>
-                <h5>Empresa Ã  comparar</h5>
+                <h5>Empresa à comparar</h5>
                 <br>
                 <ul>
                     {% for item in dados['empresas'] %}

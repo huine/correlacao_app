@@ -3,17 +3,15 @@
     <head>
         <meta charset="ISO-8859-1">
         <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"> 
-        <title>CorrelaÃ§Ã£o</title>
+        <title>Correlação</title>
     </head>
     <body>
         <center>
-            {%  %}
-            <h3>CorrelaÃ§Ã£o SaÃ­da</h3>
-            <br>
+            <h3>Resultado correlação da empresa: {{ dados['emp_princ'] }} </h3>
             <br>
             <ul>
-                {% for item in dados['empresas'] %}
-                    <li style="list-style-type: none;"><input type="radio" value="{{ item[0] }}" name="id_empresa" id="id_empresa" />{{ item[1] }}</li>
+                {% for item in dados['emp_comp'] %}
+                    <li style="list-style-type: none;">{{ item }}: {{ dados['corr_geral'][item] }}</li>
                 {% endfor %}
             </ul>
         </center>
