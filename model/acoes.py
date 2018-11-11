@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# encoding: iso-8859-1
 from model.pesquisa.pesquisa_db import Pesquisa
 from datetime import datetime
 from decimal import Decimal

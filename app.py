@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# encoding: iso-8859-1
 from flask import Flask, render_template, request, session, jsonify
 import os
 from model.DB.DB import DB

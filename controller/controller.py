@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# encoding: iso-8859-1
 from model.acoes import Acoes
 from flask import request, session
 
@@ -13,7 +13,7 @@ class Controller(object):
     def inicio(self, erro=""):
         """Busca os dados da tela inicial."""
         dados = {'empresas': [],
-                 "erro": erro.encode('utf-8', 'ignore')}
+                 "erro": erro.decode('iso-8859-1').encode('utf8')}
 
         try:
             dados['empresas'] = self.acoes.buscar_empresas()
@@ -31,7 +31,7 @@ class Controller(object):
             if _r[0]:
                 data_inicio = _r[1]
             else:
-                return (0, 'Data ínicio inválida')
+                return (0, u'Data ínicio inválida')
 
         data_fim = request.form.get('data_fim', '')
         if data_fim:
@@ -40,7 +40,7 @@ class Controller(object):
             if _r[0]:
                 data_fim = _r[1]
             else:
-                return (0, 'Data fim inválida.')
+                return (0, u'Data fim inválida.')
 
         id_empresa = request.form.get('id_empresa', None)
         _r = self.acoes.validar_empresa(id_empresa)
@@ -48,7 +48,7 @@ class Controller(object):
         if _r[0]:
             id_empresa = _r[1]
         else:
-            return (0, 'ID(s) empresa(s) inválido')
+            return (0, u'ID(s) empresa(s) inválido')
 
         id_empresa_comp = request.form.getlist('id_empresa_comp')
         _r = self.acoes.validar_empresa(id_empresa_comp)
@@ -56,7 +56,7 @@ class Controller(object):
         if _r[0]:
             id_empresa_comp = _r[1]
         else:
-            return (0, 'ID(s) empresa(s) inválido')
+            return (0, u'ID(s) empresa(s) inválido')
 
         return (1, {'dt_init': data_inicio, 'id_empresa': id_empresa,
                     'dt_fim': data_fim, 'id_empresa_comp': id_empresa_comp})
