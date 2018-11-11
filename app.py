@@ -31,7 +31,7 @@ def validar_dados():
 
     dados = controller.calcular(dados=_r[1])
 
-    return jsonify(dados.keys())
+    return jsonify(dados)
 
     return 'ljfksdjfsldk'
 

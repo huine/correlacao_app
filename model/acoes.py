@@ -3,6 +3,7 @@ from model.pesquisa.pesquisa_db import Pesquisa
 from datetime import datetime
 import math
 
+
 class Acoes(object):
     """Classe objeto acao."""
 
@@ -38,7 +39,7 @@ class Acoes(object):
                 d = datetime.strptime(data, '%d/%m/%Y')
         except ValueError:
             return (0, d)
-        
+
         return (1, d)
 
     def validar_empresa(self, id_empresa):
@@ -71,14 +72,13 @@ class Acoes(object):
         mean = c/len(dados)
         return mean
 
-    def covarianceCalc(self, values_1, values_2):
+    def covariance_calc(self, dados_princ, dados_comp):
         c = 0
-        m1 = self.mean_calc(values_1)
-        m2 = self.mean_calc(values_2)
-        ran = len(values_1)
+        m1 = self.mean_calc(dados_princ)
+        m2 = self.mean_calc(dados_comp)
         for i in range(ran):
-            c = c +(values_1[i]-m1)*(values_2[i]-m2)
-        cov = c/(ran-1)
+            c += (dados_princ[i][7] - m1)*(dados_comp[i][7] - m2)
+        cov = c/(len(dados_princ) - 1)
         return cov
 
     def calcular(self, dados):
@@ -103,4 +103,17 @@ class Acoes(object):
             empresas=dados['id_empresa_comp'], dt_init=dados['dt_init'],
             dt_fim=dados['dt_fim'])
 
-        return self.agrupar_dados(lista=emp_comp, indice=1)
+        emp_comp = self.agrupar_dados(lista=emp_comp, indice=1)
+
+        if str(emp_princ[1]) in emp_comp.keys():
+            del emp_comp[emp_princ[1]]
+
+        saida = {}
+
+        for empresa in emp_comp.keys():
+            sd_empresa = self.std_dev(dados=emp_comp[empresa])
+            cov_empresa = self.covariance_calc(
+                dados_princ=emp_princ, dados_comp=emp_comp[empresa])
+            saida[empresa] = cov_empresa/(sd_emp_princ*sd_empresa)
+
+        return saida

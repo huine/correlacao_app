@@ -76,6 +76,8 @@ class Pesquisa(object):
                     dt_fim.strftime('%d/%m/%Y'))
             )
 
+        query += "ORDER BY v.data ASC"
+
         self.query = query
 
         return self._exec()
