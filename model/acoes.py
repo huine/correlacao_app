@@ -92,6 +92,7 @@ class Acoes(object):
         # query[6] -> v.close
         # query[7] -> v.adj_close
         # query[8] -> v.volume
+        # query[9] -> v.data_str
         emp_princ = self._p.busca_acoes(
             empresas=dados['id_empresa'], dt_init=dados['dt_init'],
             dt_fim=dados['dt_fim'])
@@ -113,7 +114,8 @@ class Acoes(object):
 
         saida = {'corr_geral': {}, 'corr_periodo': {}, 'corr_prog': {},
                  'qtd_dias': len(emp_princ), 'emp_princ': emp_princ[0][1],
-                 'emp_comp': emp_comp.keys()}
+                 'emp_comp': emp_comp.keys(), 'dt_init': emp_princ[0][9],
+                 'dt_fim': emp_princ[-1][9]}
 
         for empresa in emp_comp.keys():
             sd_empresa = self.std_dev(dados=emp_comp[empresa])
