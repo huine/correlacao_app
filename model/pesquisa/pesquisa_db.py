@@ -52,7 +52,7 @@ class Pesquisa(object):
                 v.close,
                 v.adj_close,
                 v.volume,
-                TO_CHAR(t.data, 'dd/mm/yyyy') as data_str
+                TO_CHAR(v.data, 'dd/mm/yyyy') as data_str
             FROM
                 empresas e
                     INNER JOIN valores v ON v.id_empresa = e.id
