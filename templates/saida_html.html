@@ -22,7 +22,7 @@
                     <input type="hidden" value="{{ item }}" class="period_emp"/>
                     {% with data = dados['corr_periodo'][item] %}
                         {% for d in data %}
-                            <input type="hidden" value="{{ d }}" id="period_{{ item }}"/>
+                            <input type="hidden" value="{{ d['json'] }}" class="period_{{ item }}"/>
                         {% endfor %}
                     {% endwith %}
                 {% endfor %}
