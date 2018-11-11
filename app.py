@@ -26,7 +26,7 @@ def validar_dados():
     """Validacao dos inputs."""
     _r = controller.validar()
 
-    raise Exception(request.form.getlist('id_empresa_comp'):)
+    raise Exception(request.form.getlist('id_empresa_comp'))
 
     if _r[0] == 0:
         return index_html(erro=_r[1])
