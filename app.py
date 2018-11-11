@@ -27,6 +27,10 @@ def validar_dados():
     _r = controller.validar()
 
     raise Exception (request.form['id_empresa_comp'], request.values)
+    r = []
+    for i in request.form['id_empresa_comp']:
+        r.append(i)
+    raise Exception (r)
 
     if _r[0] == 0:
         return index_html(erro=_r[1])
