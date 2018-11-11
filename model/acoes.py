@@ -115,6 +115,7 @@ class Acoes(object):
             sd_empresa = self.std_dev(dados=emp_comp[empresa])
             cov_empresa = self.covariance_calc(
                 dados_princ=emp_princ, dados_comp=emp_comp[empresa])
-            saida[empresa] = Decimal(cov_empresa) / (sd_emp_princ*sd_empresa)
+            saida[empresa] = Decimal(cov_empresa) /\
+                Decimal(sd_emp_princ*sd_empresa)
 
         return saida
