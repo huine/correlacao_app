@@ -10,6 +10,9 @@
         <center>
             <h3>Resultado correlação da empresa: {{ dados['emp_princ'] }} </h3>
             <br>
+            <h4>Intervalo de datas: {{ dados['dt_init'] }} - {{ dados['dt_fim'] }}</h4>
+            <input type="hidden" id="dt_init" value="{{ dados['dt_init'] }}">
+            <input type="hidden" id="dt_fim" value="{{ dados['dt_fim'] }}">
             <ul>
                 {% for item in dados['emp_comp'] %}
                     <li style="list-style-type: none;">{{ item }}: {{ dados['corr_geral'][item]['corr'] }}</li>
@@ -36,7 +39,7 @@
                     <input type="hidden" value="{{ item }}" class="progress_emp"/>
                     {% with data = dados['corr_prog'][item] %}
                         {% for d in data %}
-                            <input type="hidden" value="{{ d }}" id="progress_{{ item }}"/>
+                            <input type="hidden" value="{{ d['json'] }}" class="progress_{{ item }}"/>
                         {% endfor %}
                     {% endwith %}
                 {% endfor %}
@@ -46,95 +49,7 @@
         </center>
     </body>
     <script type="text/javascript">
-        window.onload = function () {
-
-            var chart = new CanvasJS.Chart("Period", {
-                animationEnabled: true,
-                theme: "dark1",
-                title:{
-                    text: "Correlação por período de 90 dias."
-                },
-                axisX:{
-                    valueFormatString: "DD MMM YYYY",
-                    crosshair: {
-                        enabled: true,
-                        snapToDataPoint: true
-                    }
-                },
-                axisY: {
-                    title: "Grau Correlação",
-                    crosshair: {
-                        enabled: true
-                    }
-                },
-                toolTip:{
-                    shared:true
-                },  
-                legend:{
-                    cursor:"pointer",
-                    verticalAlign: "bottom",
-                    horizontalAlign: "left",
-                    dockInsidePlotArea: true,
-                    itemclick: toogleDataSeries
-                },
-                data: [{
-                    type: "line",
-                    showInLegend: true,
-                    name: "Total Visit",
-                    markerType: "square",
-                    xValueFormatString: "DD MMM YYYY",
-                    color: "#F08080",
-                    dataPoints: [
-                        { x: new Date(2017, 0, 3), y: 650 },
-                        { x: new Date(2017, 0, 4), y: 700 },
-                        { x: new Date(2017, 0, 5), y: 710 },
-                        { x: new Date(2017, 0, 6), y: 658 },
-                        { x: new Date(2017, 0, 7), y: 734 },
-                        { x: new Date(2017, 0, 8), y: 963 },
-                        { x: new Date(2017, 0, 9), y: 847 },
-                        { x: new Date(2017, 0, 10), y: 853 },
-                        { x: new Date(2017, 0, 11), y: 869 },
-                        { x: new Date(2017, 0, 12), y: 943 },
-                        { x: new Date(2017, 0, 13), y: 970 },
-                        { x: new Date(2017, 0, 14), y: 869 },
-                        { x: new Date(2017, 0, 15), y: 890 },
-                        { x: new Date(2017, 0, 16), y: 930 }
-                    ]
-                },
-                {
-                    type: "line",
-                    showInLegend: true,
-                    name: "Unique Visit",
-                    lineDashType: "dash",
-                    dataPoints: [
-                        { x: new Date(2017, 0, 3), y: 510 },
-                        { x: new Date(2017, 0, 4), y: 560 },
-                        { x: new Date(2017, 0, 5), y: 540 },
-                        { x: new Date(2017, 0, 6), y: 558 },
-                        { x: new Date(2017, 0, 7), y: 544 },
-                        { x: new Date(2017, 0, 8), y: 693 },
-                        { x: new Date(2017, 0, 9), y: 657 },
-                        { x: new Date(2017, 0, 10), y: 663 },
-                        { x: new Date(2017, 0, 11), y: 639 },
-                        { x: new Date(2017, 0, 12), y: 673 },
-                        { x: new Date(2017, 0, 13), y: 660 },
-                        { x: new Date(2017, 0, 14), y: 562 },
-                        { x: new Date(2017, 0, 15), y: 643 },
-                        { x: new Date(2017, 0, 16), y: 570 }
-                    ]
-                }]
-            });
-            chart.render();
-
-            function toogleDataSeries(e){
-                if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-                    e.dataSeries.visible = false;
-                } else{
-                    e.dataSeries.visible = true;
-                }
-                chart.render();
-            }
-        }
+        window.onload = dados_grafico()
 
         function format_date(date){
             var parts = date.split('/');
@@ -163,44 +78,170 @@
             return colors[rand]
         }
 
-        // function dados_grafico(){
-        //     period_emp = document.getElementsByClassName('period_emp')
-        //     progress_emp = document.getElementsByClassName('progress_emp')
+        function dados_grafico(){
+            period_emp = document.getElementsByClassName('period_emp')
+            progress_emp = document.getElementsByClassName('progress_emp')
 
-        //     period = []
-        //     progress = []
+            period = []
+            progress = []
 
-        //     for(var i=0; i < period_emp.length; i++){
-        //         tmp = []
-        //         document.getElementsByClassName()
-        //         // for(var j=0; j < )
-        //         //     format_date(document.getElementById('period_fim_' + period_emp[i].value)),
-        //         //     document.getElementById('period_corr_' + period_emp[i].value),
-        //         //     period_var = document.getElementById('period_var_' + period_emp[i].value)
-        //         //     if (period_var == 0){
-        //         //         obj = {
-        //         //             x: x, y: y, markerColor: "blue", markerType: "square"
-        //         //         }
-        //         //     } else if (period_var > 0){
-        //         //         obj = {
-        //         //             x: x, y: y, indexLabel: "Subida", markerColor: "green", markerType: "triangle"
-        //         //         }
-        //         //     } else {
-        //         //         obj = {
-        //         //             x: x, y: y, indexLabel: "Queda", markerColor: "red", markerType: "triangle"
-        //         //         }
-        //         //     }
-        //         //     tmp.push(obj);
+            for(var i=0; i < period_emp.length; i++){
+                linha = {
+                    type: "line",
+                    showInLegend: true,
+                    name: period_emp[i].value,
+                    xValueFormatString: "DD MMM YYYY",
+                    color: color()
+                }
 
-        //         obj{
-        //             type: "line",
-        //             showInLegend: true,
-        //             name: period_emp[i].value,
-        //             xValueFormatString: "DD MMM YYYY",
-        //             color: color()
-        //         }
-        //     }
-        // }
+                x = format_date(document.getElementById('dt_init').value)
+                tmp = [{x: x, y: 0, markerColor: "blue", markerType: "square"}]
+
+                infos = document.getElementsByClassName('period_' + period_emp[i].value)
+
+                for(var j=0; j < infos.length; j++){
+                    item = JSON.parse(infos[j].value);
+                    x = format_date(item['dt_fim'])
+                    y = item['corr']
+
+                    if (item['var'] == 0){
+                        obj = {x: x, y: y, markerColor: "blue", markerType: "square"}
+                    } else if (item['var'] > 0){
+                        obj = {x: x, y: y, indexLabel: "Subida", markerColor: "green", markerType: "triangle"}
+                    } else {
+                        obj = {x: x, y: y, indexLabel: "Queda", markerColor: "red", markerType: "triangle"}
+                    }
+
+                    tmp.push(obj);
+                }
+
+                linha['dataPoints'] = tmp
+                period.push(linha)
+            }
+
+
+            for(var i=0; i < progress_emp.length; i++){
+                linha = {
+                    type: "line",
+                    showInLegend: true,
+                    name: progress_emp[i].value,
+                    xValueFormatString: "DD MMM YYYY",
+                    color: color()
+                }
+
+                x = format_date(document.getElementById('dt_init').value)
+                tmp = [{x: x, y: 0, markerColor: "blue", markerType: "square"}]
+
+                infos = document.getElementsByClassName('progress_' + progress_emp[i].value)
+
+                for(var j=0; j < infos.length; j++){
+                    item = JSON.parse(infos[j].value);
+                    x = format_date(item['dt_fim'])
+                    y = item['corr']
+
+                    if (item['var'] == 0){
+                        obj = {x: x, y: y, markerColor: "blue", markerType: "square"}
+                    } else if (item['var'] > 0){
+                        obj = {x: x, y: y, indexLabel: "Subida", markerColor: "green", markerType: "triangle"}
+                    } else {
+                        obj = {x: x, y: y, indexLabel: "Queda", markerColor: "red", markerType: "triangle"}
+                    }
+
+                    tmp.push(obj);
+                }
+
+                linha['dataPoints'] = tmp
+                progress.push(linha)
+            }
+
+            gerar_grafico(period, progress)
+        }
+
+        function gerar_grafico(period, progress){
+            var chart_period = new CanvasJS.Chart("Period", {
+                animationEnabled: true,
+                theme: "dark1",
+                title:{
+                    text: "Correlação por período de 90 dias."
+                },
+                axisX:{
+                    valueFormatString: "DD MMM YYYY",
+                    crosshair: {
+                        enabled: true,
+                        snapToDataPoint: true
+                    }
+                },
+                axisY: {
+                    title: "Grau Correlação",
+                    crosshair: {
+                        enabled: true
+                    }
+                },
+                toolTip:{
+                    shared:true
+                },  
+                legend:{
+                    cursor:"pointer",
+                    verticalAlign: "bottom",
+                    horizontalAlign: "left",
+                    dockInsidePlotArea: true,
+                    itemclick: toogleDataSeries
+                },
+                data: period
+            });
+            chart_period.render();
+
+            function toogleDataSeries(e){
+                if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                    e.dataSeries.visible = false;
+                } else{
+                    e.dataSeries.visible = true;
+                }
+                chart_period.render();
+            }
+
+            var chart_progress = new CanvasJS.Chart("Progress", {
+                animationEnabled: true,
+                theme: "dark1",
+                title:{
+                    text: "Progressão da correlação a cada 90 dias."
+                },
+                axisX:{
+                    valueFormatString: "DD MMM YYYY",
+                    crosshair: {
+                        enabled: true,
+                        snapToDataPoint: true
+                    }
+                },
+                axisY: {
+                    title: "Grau Correlação",
+                    crosshair: {
+                        enabled: true
+                    }
+                },
+                toolTip:{
+                    shared:true
+                },  
+                legend:{
+                    cursor:"pointer",
+                    verticalAlign: "bottom",
+                    horizontalAlign: "left",
+                    dockInsidePlotArea: true,
+                    itemclick: toogleDataSeries
+                },
+                data: progress
+            });
+            chart_progress.render();
+
+            function toogleDataSeries(e){
+                if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                    e.dataSeries.visible = false;
+                } else{
+                    e.dataSeries.visible = true;
+                }
+                chart_progress.render();
+            }
+        }
 
     </script>
 </html>
