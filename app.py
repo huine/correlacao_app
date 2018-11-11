@@ -26,7 +26,6 @@ def validar_dados():
     """Validacao dos inputs."""
     _r = controller.validar()
 
-    raise Exception (request.form['id_empresa_comp'], request.values)
     r = []
     for i in request.form['id_empresa_comp']:
         r.append(i)
