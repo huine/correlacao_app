@@ -49,5 +49,5 @@ class Acoes(object):
             empresas=dados['id_empresa'], dt_init=dados['dt_init'],
             dt_fim=dados['dt_fim'])
 
-        raise Exception(emp_princ)
+        return emp_princ
         
