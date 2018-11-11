@@ -108,8 +108,8 @@ class Acoes(object):
 
         emp_comp = self.agrupar_dados(lista=emp_comp, indice=1)
 
-        if str(emp_princ[1]) in emp_comp.keys():
-            del emp_comp[emp_princ[1]]
+        if str(emp_princ[0][1]) in emp_comp.keys():
+            del emp_comp[emp_princ[0][1]]
 
         saida = {'corr_geral': {}, 'corr_periodo': {}, 'corr_prog': {}}
 
@@ -134,7 +134,22 @@ class Acoes(object):
 
                 init += 90
 
-
             saida['corr_periodo'][empresa] = saida_periodo
+
+            saida_periodo = []
+            end = 0
+            while end < len(emp_princ):
+                end += 90
+
+                periodo_emp_princ = emp_princ[0:end]
+                periodo = emp_comp[empresa][0:end]
+
+                sd_empresa = self.std_dev(dados=periodo)
+                cov_empresa = self.covariance_calc(
+                    dados_princ=periodo_emp_princ, dados_comp=periodo)
+
+                saida_periodo.append(cov_empresa / (sd_emp_princ*sd_empresa))
+
+            saida['corr_prog'][empresa] = saida_periodo
 
         return saida
