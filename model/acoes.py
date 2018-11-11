@@ -57,7 +57,7 @@ class Acoes(object):
     def std_dev(self, dados):
         """."""
         c = 0
-        x = mean_calc(dados)
+        x = self.mean_calc(dados)
         for item in dados:
             c += (item[7] - x)**2
         sd = (c/(len(dados) - 1))**(0.5) # **(0.5) -> square root
@@ -73,8 +73,8 @@ class Acoes(object):
 
     def covarianceCalc(self, values_1, values_2):
         c = 0
-        m1 = mean_calc(values_1)
-        m2 = mean_calc(values_2)
+        m1 = self.mean_calc(values_1)
+        m2 = self.mean_calc(values_2)
         ran = len(values_1)
         for i in range(ran):
             c = c +(values_1[i]-m1)*(values_2[i]-m2)
