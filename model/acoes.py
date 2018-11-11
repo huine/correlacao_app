@@ -36,7 +36,7 @@ class Acoes(object):
         d = None
         try:
             if data:
-                d = datetime.strptime(data, '%d/%m/%Y')
+                d = datetime.strptime(data, '%Y-%m-%d')
         except ValueError:
             return (0, d)
 
