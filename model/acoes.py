@@ -23,7 +23,8 @@ class Acoes(object):
         """Valida uma data e retorna como objeto Date."""
         d = None
         try:
-            d = datetime.strptime(data, '%d/%m/%Y')
+            if data:
+                d = datetime.strptime(data, '%d/%m/%Y')
         except ValueError:
             return (0, d)
         

@@ -1,5 +1,5 @@
 # -*- coding: iso-8859-1 -*-
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, jsonify
 import os
 from model.DB.DB import DB
 from controller.controller import Controller
@@ -29,7 +29,7 @@ def validar_dados():
     if _r[0] == 0:
         return index_html(erro=_r[1])
 
-    print _r
+     return jsonify(_r)
 
     dados = controller.calcular(dados=_r[1])
 
