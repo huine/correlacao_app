@@ -43,7 +43,7 @@ class Controller(object):
 
         id_empresa = request.form['id_empresa']
         if id_empresa:
-            _r = self.validar_empresa(id_empresa)
+            _r = self.acoes.validar_empresa(id_empresa)
 
             if _r[0]:
                 id_empresa = _r[1]
@@ -52,7 +52,7 @@ class Controller(object):
 
         id_empresa_comp = request.form['id_empresa_comp']
         if id_empresa_comp:
-            _r = self.validar_empresa(id_empresa_comp)
+            _r = self.acoes.validar_empresa(id_empresa_comp)
 
             if _r[0]:
                 id_empresa_comp = _r[1]
