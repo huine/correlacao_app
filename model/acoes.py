@@ -2,6 +2,7 @@
 from model.pesquisa.pesquisa_db import Pesquisa
 from datetime import datetime
 from decimal import Decimal
+import simplejson as json
 
 
 class Acoes(object):
@@ -162,6 +163,8 @@ class Acoes(object):
                     else:
                         d['var'] = -1
 
+                d['json'] = json.loads(d)
+
                 saida_periodo.append(d)
 
             saida['corr_periodo'][empresa] = saida_periodo
@@ -196,6 +199,8 @@ class Acoes(object):
                         d['var'] = 0
                     else:
                         d['var'] = -1
+
+                d['json'] = json.loads(d)
 
                 saida_periodo.append(d)
 
