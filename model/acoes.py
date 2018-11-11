@@ -51,7 +51,7 @@ class Acoes(object):
 
     def calcular(self, dados):
         """Recebe os dados necessarios para iniciar os calculos."""
-        emp_princ = self.acoes.busca_acoes(
+        emp_princ = self._p.busca_acoes(
             empresas=dados['id_empresa'], dt_init=dados['dt_init'],
             dt_fim=dados['dt_fim'])
 
