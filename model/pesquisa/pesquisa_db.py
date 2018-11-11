@@ -54,7 +54,7 @@ class Pesquisa(object):
                 v.volume
             FROM
                 empresas e
-                    INNER JOIN valores v ON v.id_empresa = e.id_empresa
+                    INNER JOIN valores v ON v.id_empresa = e.id
             WHERE
                 1=1
         """
