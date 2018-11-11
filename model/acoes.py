@@ -38,7 +38,7 @@ class Acoes(object):
                 else:
                     return (1, [int(x)])
             else:
-                return int(id_empresa)
+                return (1, int(id_empresa))
         except:
             if not unique:
                 return (0, [])
