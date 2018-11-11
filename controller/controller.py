@@ -23,7 +23,7 @@ class Controller(object):
 
     def validar(self):
         """Valida os dados da request."""
-        data_inicio = request.form['data_init']
+        data_inicio = request.form.get('data_init', '')
         if data_inicio:
             _r = self.acoes.validar_data(data_inicio)
 
@@ -32,7 +32,7 @@ class Controller(object):
             else:
                 return (0, 'Data ínicio inválida')
 
-        data_fim = request.form['data_fim']
+        data_fim = request.form.get('data_fim', '')
         if data_fim:
             _r = self.acoes.validar_data(data_fim)
 
