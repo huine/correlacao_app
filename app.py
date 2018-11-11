@@ -26,7 +26,7 @@ def validar_dados():
     """Validacao dos inputs."""
     _r = controller.validar()
 
-    return request.values
+    return request.get_json(force=True)
 
     if _r[0] == 0:
         return index_html(erro=_r[1])
