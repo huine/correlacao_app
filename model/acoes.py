@@ -76,7 +76,7 @@ class Acoes(object):
         c = 0
         m1 = self.mean_calc(dados_princ)
         m2 = self.mean_calc(dados_comp)
-        for i in range(ran):
+        for i in range(len(dados_princ)):
             c += (dados_princ[i][7] - m1)*(dados_comp[i][7] - m2)
         cov = c/(len(dados_princ) - 1)
         return cov
