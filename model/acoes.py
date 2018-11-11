@@ -111,14 +111,15 @@ class Acoes(object):
         if str(emp_princ[0][1]) in emp_comp.keys():
             del emp_comp[emp_princ[0][1]]
 
-        saida = {'corr_geral': {}, 'corr_periodo': {}, 'corr_prog': {}}
+        saida = {'corr_geral': {}, 'corr_periodo': {}, 'corr_prog': {},
+                 'qtd_dias': len(emp_princ)}
 
         for empresa in emp_comp.keys():
             sd_empresa = self.std_dev(dados=emp_comp[empresa])
             cov_empresa = self.covariance_calc(
                 dados_princ=emp_princ, dados_comp=emp_comp[empresa])
-            saida['corr_geral'][empresa] =\
-                cov_empresa / (sd_emp_princ*sd_empresa)
+            saida['corr_geral'][empresa] = (
+                len(emp_princ), cov_empresa / (sd_emp_princ*sd_empresa))
 
             saida_periodo = []
             init = 0
@@ -126,13 +127,23 @@ class Acoes(object):
                 periodo_emp_princ = emp_princ[init:init+90]
                 periodo = emp_comp[empresa][init:init+90]
 
+                init += 90
+
                 sd_empresa = self.std_dev(dados=periodo)
                 cov_empresa = self.covariance_calc(
                     dados_princ=periodo_emp_princ, dados_comp=periodo)
+                corr = cov_empresa / (sd_emp_princ*sd_empresa)
+                if init <= 90:
+                    tmp = (init, corr, 0)
+                else:
+                    if corr > saida_periodo[-1]:
+                        tmp = (init, corr, 1)
+                    elif corr == saida_periodo[-1]:
+                        tmp = (init, corr, 0)
+                    else:
+                        tmp = (init, corr, -1)
 
-                saida_periodo.append(cov_empresa / (sd_emp_princ*sd_empresa))
-
-                init += 90
+                saida_periodo.append(tmp)
 
             saida['corr_periodo'][empresa] = saida_periodo
 
@@ -148,7 +159,19 @@ class Acoes(object):
                 cov_empresa = self.covariance_calc(
                     dados_princ=periodo_emp_princ, dados_comp=periodo)
 
-                saida_periodo.append(cov_empresa / (sd_emp_princ*sd_empresa))
+                corr = cov_empresa / (sd_emp_princ*sd_empresa)
+
+                if end <= 90:
+                    tmp = (end, corr, 0)
+                else:
+                    if corr > saida_periodo[-1]:
+                        tmp = (end, corr, 1)
+                    elif corr == saida_periodo[-1]:
+                        tmp = (end, corr, 0)
+                    else:
+                        tmp = (end, corr, -1)
+
+                saida_periodo.append(tmp)
 
             saida['corr_prog'][empresa] = saida_periodo
 
