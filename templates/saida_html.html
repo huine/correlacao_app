@@ -18,14 +18,34 @@
             <br>
             <br>
             <div>
-
+                {% for item in dados['corr_periodo'].keys() %}
+                    <input type="hidden" value="{{ item }}" class="period_emp"/>
+                    {% with data = dados['corr_periodo'][item] %}
+                        {% for d in data %}
+                            <input type="hidden" value="{{ d['dt_init'] }}" id="period_init_{{ item }}"/>
+                            <input type="hidden" value="{{ d['dt_fim'] }}" id="period_fim_{{ item }}"/>
+                            <input type="hidden" value="{{ d['corr'] }}" id="period_corr_{{ item }}"/>
+                            <input type="hidden" value="{{ d['var'] }}" id="period_var_{{ item }}"/>
+                        {% endfor %}
+                    {% endwith %}
+                {% endfor %}
                 <div id="Period" style="height: 300px; width: 100%;"></div>
             </div>
 
             <br>
             <br>
             <div>
-
+                {% for item in dados['corr_prog'].keys() %}
+                    <input type="hidden" value="{{ item }}" class="period_emp"/>
+                    {% with data = dados['corr_prog'][item] %}
+                        {% for d in data %}
+                            <input type="hidden" value="{{ d['dt_init'] }}" id="progress_init_{{ item }}"/>
+                            <input type="hidden" value="{{ d['dt_fim'] }}" id="progress_fim_{{ item }}"/>
+                            <input type="hidden" value="{{ d['corr'] }}" id="progress_corr_{{ item }}"/>
+                            <input type="hidden" value="{{ d['var'] }}" id="progress_var_{{ item }}"/>
+                        {% endfor %}
+                    {% endwith %}
+                {% endfor %}
                 <div id="Progress" style="height: 300px; width: 100%;"></div>
             </div>
 
@@ -38,17 +58,17 @@
                 animationEnabled: true,
                 theme: "light2",
                 title:{
-                    text: "Site Traffic"
+                    text: "Correlação por período de 90 dias."
                 },
                 axisX:{
-                    valueFormatString: "DD MMM",
+                    valueFormatString: "DD MMM YYYY",
                     crosshair: {
                         enabled: true,
                         snapToDataPoint: true
                     }
                 },
                 axisY: {
-                    title: "Number of Visits",
+                    title: "Grau Correlação",
                     crosshair: {
                         enabled: true
                     }
@@ -68,7 +88,7 @@
                     showInLegend: true,
                     name: "Total Visit",
                     markerType: "square",
-                    xValueFormatString: "DD MMM, YYYY",
+                    xValueFormatString: "DD MMM YYYY",
                     color: "#F08080",
                     dataPoints: [
                         { x: new Date(2017, 0, 3), y: 650 },
