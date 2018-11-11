@@ -50,7 +50,6 @@ class Controller(object):
             return (0, 'ID(s) empresa(s) inválido')
 
         id_empresa_comp = request.form.getlist('id_empresa_comp')
-        raise Exception(id_empresa_comp)
         _r = self.acoes.validar_empresa(id_empresa_comp)
 
         if _r[0]:
