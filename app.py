@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, session, jsonify
 import os
 from model.DB.DB import DB
 from controller.controller import Controller
+import simplejson as json
 
 app = Flask(__name__)
 controller = Controller()
@@ -31,7 +32,7 @@ def validar_dados():
 
     dados = controller.calcular(dados=_r[1])
 
-    return jsonify(dados)
+    return json.dumps(dados)
 
     return 'ljfksdjfsldk'
 
