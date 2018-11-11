@@ -13,7 +13,7 @@ class Controller(object):
     def inicio(self, erro=""):
         """Busca os dados da tela inicial."""
         dados = {'empresas': [],
-                 "erro": erro.decode('latin1').encode('utf-8', 'ignore')}
+                 "erro": erro.decode('iso-8859-1', 'ignore').encode('utf-8', 'ignore')}
 
         try:
             dados['empresas'] = self.acoes.buscar_empresas()
