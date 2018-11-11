@@ -31,7 +31,7 @@ def validar_dados():
 
     dados = controller.calcular(dados=_r[1])
 
-    return jsonify(dados)
+    return dados
 
     return 'ljfksdjfsldk'
 
@@ -49,5 +49,4 @@ def db():
 
 port = int(os.environ.get('PORT', "5000"))
 if __name__ == "__main__":
-    # debug=True, use_reloader=True,
     app.run(host='0.0.0.0', port=port, use_reloader=True)
