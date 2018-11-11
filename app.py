@@ -29,7 +29,7 @@ def validar_dados():
     if _r[0] == 0:
         return index_html(erro=_r[1])
 
-     return jsonify(_r)
+    return jsonify(_r)
 
     dados = controller.calcular(dados=_r[1])
 
