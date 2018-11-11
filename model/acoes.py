@@ -163,7 +163,7 @@ class Acoes(object):
                     else:
                         d['var'] = -1
 
-                d['json'] = json.loads(d)
+                d['json'] = json.dumps(d)
 
                 saida_periodo.append(d)
 
@@ -200,7 +200,7 @@ class Acoes(object):
                     else:
                         d['var'] = -1
 
-                d['json'] = json.loads(d)
+                d['json'] = json.dumps(d)
 
                 saida_periodo.append(d)
 
