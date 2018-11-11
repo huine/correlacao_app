@@ -54,7 +54,7 @@ class Acoes(object):
         except:
             return (0, None)
 
-    def std_dev(dados):
+    def std_dev(self, dados):
         """."""
         c = 0
         x = mean_calc(dados)
@@ -63,7 +63,7 @@ class Acoes(object):
         sd = (c/(len(dados) - 1))**(0.5) # **(0.5) -> square root
         return sd
 
-    def mean_calc(dados):
+    def mean_calc(self, dados):
         """."""
         c = 0
         for item in dados:
@@ -71,7 +71,7 @@ class Acoes(object):
         mean = c/len(dados)
         return mean
 
-    def covarianceCalc(values_1, values_2):
+    def covarianceCalc(self, values_1, values_2):
         c = 0
         m1 = mean_calc(values_1)
         m2 = mean_calc(values_2)
